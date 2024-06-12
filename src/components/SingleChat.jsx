@@ -178,6 +178,32 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
+  // useEffect(() => {
+  //   const onMessageReceived = (newMessageReceived) => {
+  //     if (
+  //       !selectedChatCompare ||
+  //       selectedChatCompare._id !== newMessageReceived.chat._id
+  //     ) {
+  //       if (
+  //         !notificationsData.notifications.find(
+  //           (notification) => notification._id === newMessageReceived._id
+  //         ) &&
+  //         !ref.current.notificationsEditLoading
+  //       ) {
+  //         ref.current.notificationsEditLoading = true;
+
+  //         addNewNotifications(JSON.stringify([newMessageReceived._id]));
+  //         setFetchAgain(!fetchAgain);
+  //       }
+  //     } else {
+  //       setMessages([...messages, newMessageReceived]);
+  //     }
+  //   };
+  //   socket.on("message received", onMessageReceived);
+  //   return () => {
+  //     socket.off("message received", onMessageReceived);
+  //   };
+  // });
   useEffect(() => {
     const onMessageReceived = (newMessageReceived) => {
       if (
@@ -192,18 +218,25 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         ) {
           ref.current.notificationsEditLoading = true;
 
-          addNewNotifications(JSON.stringify([newMessageReceived._id]));
-          setFetchAgain(!fetchAgain);
+          addNewNotifications(JSON.stringify([newMessageReceived._id]))
+            .then(() => {
+              setFetchAgain((prev) => !prev);
+            })
+            .finally(() => {
+              ref.current.notificationsEditLoading = false;
+            });
         }
       } else {
-        setMessages([...messages, newMessageReceived]);
+        setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
       }
     };
+
     socket.on("message received", onMessageReceived);
+
     return () => {
       socket.off("message received", onMessageReceived);
     };
-  });
+  }, [socket, selectedChatCompare, notificationsData.notifications, addNewNotifications]);
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
