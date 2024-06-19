@@ -62,7 +62,7 @@ const GroupChatModal = ({ children }) => {
         `${apiUrl}/api/v1/user/allUsers?search=${search}`,
         config
       );
-      console.log(data);
+      // console.log(data);
       setLoading(false);
       setSearchResult(data.users);
     } catch (error) {

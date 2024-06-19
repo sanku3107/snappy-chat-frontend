@@ -159,7 +159,7 @@ function SideDrawer() {
         config
       );
       // setNotificationsData(data);
-      console.log("Delete response:", data);
+      // console.log("Delete response:", data);
       setNotificationsData((prevData) => ({
         ...prevData,
         notifications: prevData.notifications.filter(

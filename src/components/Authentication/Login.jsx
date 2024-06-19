@@ -76,7 +76,7 @@ const Login = () => {
       setLoading(false);
       navigate("/chats");
     } catch (error) {
-      console.log(error, error?.response);
+      // console.log(error, error?.response);
       toast({
         title: "Error Occurred!",
         description: error.response.data.msg.text || "Try again later!!",

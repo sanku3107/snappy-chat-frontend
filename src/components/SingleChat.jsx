@@ -13,7 +13,6 @@ import {
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import axios from "axios";
-import Lottie from "react-lottie";
 import { io } from "socket.io-client";
 
 import ProfileModal from "./miscellaneous/ProfileModal";
@@ -236,7 +235,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     return () => {
       socket.off("message received", onMessageReceived);
     };
-  }, [socket, selectedChatCompare, notificationsData.notifications, addNewNotifications]);
+  });
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
