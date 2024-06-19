@@ -72,7 +72,7 @@ const ForgotPassword = () => {
         },
       };
       const { data } = await axios.post(
-        `${apiUrl}/api/v1/user/password/reset/email/send`,
+        `${apiUrl}/api/v1/user/password/reset/email/nverify/send`,
         {
           email,
         },
@@ -132,7 +132,7 @@ const ForgotPassword = () => {
         },
       };
       const { data } = await axios.post(
-        `${apiUrl}/api/v1/user/password/reset/email/resend`,
+        `${apiUrl}/api/v1/user/password/reset/email/nverify/resend`,
         {
           email,
         },
